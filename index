@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eouf — A Study in Nature's Perfect Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:          #1a0a2e;
+      --purple-rich:  #2d0a5e;
+      --purple-mid:   #5b21b6;
+      --purple-soft:  #8b5cf6;
+      --purple-mist:  #ede9fe;
+      --purple-frost: #f5f3ff;
+      --white:        #ffffff;
+      --off-white:    #faf9fc;
+      --rule:         #e4dff4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 56px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .nav-wordmark span { color: var(--purple-mid); }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+    nav ul a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding-top: 64px;
+      background: var(--purple-rich);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(139,92,246,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 56px;
+      z-index: 2;
+    }
+    .hero-overline {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--purple-soft);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-overline::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--purple-soft);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 32px;
+      letter-spacing: -1px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--purple-soft);
+    }
+    .hero-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.9;
+      max-width: 380px;
+      margin-bottom: 48px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+    }
+    .hero-stat { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
+    .hero-stat .hs-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat .hs-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+    .hero-eouf-graphic {
+      width: 280px;
+      height: 340px;
+      background: linear-gradient(145deg, rgba(139,92,246,0.25) 0%, rgba(255,255,255,0.06) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 100px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+
+    /* ── SHARED ── */
+    .eyebrow {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--purple-mid);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--purple-mid); }
+
+    h2.serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    h2.serif em { font-style: italic; color: var(--purple-mid); }
+    h2.serif.light { color: var(--white); }
+    h2.serif.light em { color: var(--purple-soft); }
+
+    .body-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: #4a3560;
+      line-height: 1.9;
+      max-width: 600px;
+    }
+    .body-text.light { color: rgba(255,255,255,0.55); }
+
+    .rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* ── WHAT IS ── */
+    .what-section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .what-cards { display: flex; flex-direction: column; gap: 0; }
+    .what-card {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .what-card:first-child { border-top: 1px solid var(--rule); }
+    .wc-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple-mid);
+      opacity: 0.5;
+      padding-top: 2px;
+    }
+    .wc-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--ink); margin-bottom: 8px; text-transform: uppercase; }
+    .wc-text { font-size: 13px; font-weight: 300; color: #4a3560; line-height: 1.85; }
+
+    /* ── ANATOMY ── */
+    .anatomy-outer { background: var(--purple-rich); padding: 120px 0; }
+    .anatomy-inner { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+    .anatomy-header { margin-bottom: 72px; }
+    .anatomy-parts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 2px;
+    }
+    .a-part {
+      background: var(--purple-rich);
+      padding: 36px 28px;
+      transition: background 0.25s;
+    }
+    .a-part:hover { background: rgba(255,255,255,0.05); }
+    .a-part-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      color: var(--purple-soft);
+      opacity: 0.6;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .a-part h4 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .a-part p { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.85; }
+
+    /* ── TYPES ── */
+    .types-section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
+    .types-header { margin-bottom: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .type-card {
+      background: var(--white);
+      padding: 40px 32px;
+      transition: background 0.2s;
+    }
+    .type-card:hover { background: var(--purple-frost); }
+    .tc-icon { font-size: 28px; margin-bottom: 20px; display: block; }
+    .tc-name { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 10px; }
+    .tc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .tc-text { font-size: 12px; font-weight: 300; color: #4a3560; line-height: 1.85; }
+
+    /* ── DEVELOPMENT ── */
+    .dev-section { background: var(--off-white); padding: 120px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .dev-inner { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+    .dev-header { margin-bottom: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+    .stages-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+      background: var(--rule);
+      margin-bottom: 80px;
+    }
+    .stage {
+      background: var(--white);
+      padding: 32px 20px;
+      position: relative;
+    }
+    .stage::after {
+      content: '';
+      position: absolute;
+      top: 32px; right: 0;
+      width: 1px; height: 24px;
+      background: var(--rule);
+    }
+    .stage:last-child::after { display: none; }
+    .st-day { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--purple-mid); opacity: 0.7; margin-bottom: 16px; display: block; }
+    .st-icon { font-size: 24px; display: block; margin-bottom: 14px; }
+    .st-title { font-size: 11px; font-weight: 600; color: var(--ink); letter-spacing: 0.5px; margin-bottom: 8px; text-transform: uppercase; }
+    .st-text { font-size: 11px; font-weight: 300; color: #4a3560; line-height: 1.75; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .stat-cell {
+      background: var(--white);
+      padding: 40px 32px;
+    }
+    .stat-label { font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--purple-mid); opacity: 0.7; margin-bottom: 12px; display: block; }
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-desc { font-size: 12px; font-weight: 300; color: #4a3560; line-height: 1.75; }
+
+    /* ── INCUBATION ── */
+    .incub-section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
+    .incub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 64px; }
+    .incub-cell { background: var(--white); padding: 48px 40px; }
+    .incub-cell h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--ink); margin-bottom: 24px; }
+    .incub-cell ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .incub-cell li { font-size: 13px; font-weight: 300; color: #4a3560; line-height: 1.7; padding-left: 20px; position: relative; }
+    .incub-cell li::before { content: '—'; position: absolute; left: 0; color: var(--purple-mid); opacity: 0.5; }
+
+    /* ── CHAOS THEORY ── */
+    .chaos-outer { background: var(--purple-rich); padding: 120px 0; }
+    .chaos-inner-wrap { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+    .chaos-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 72px; }
+    .chaos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+    .chaos-cell {
+      background: var(--purple-rich);
+      padding: 40px 36px;
+      transition: background 0.2s;
+    }
+    .chaos-cell:hover { background: rgba(255,255,255,0.04); }
+    .chaos-cell h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .chaos-cell p { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.85; }
+    .chaos-connection {
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 48px;
+    }
+    .chaos-connection .cc-label { font-size: 9px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--purple-soft); opacity: 0.7; margin-bottom: 20px; display: block; }
+    .chaos-connection h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .chaos-connection p { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 18px; }
+    .chaos-connection p:last-child { margin-bottom: 0; }
+    .chaos-connection p strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+    /* ── FUN FACTS ── */
+    .facts-section { padding: 120px 56px; max-width: 1200px; margin: 0 auto; }
+    .facts-header { margin-bottom: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+    .facts-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+    .fact-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 36px;
+      align-items: start;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.2s;
+    }
+    .fact-row:hover { background: var(--purple-frost); margin: 0 -24px; padding: 36px 24px; }
+    .fact-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple-mid);
+      opacity: 0.4;
+      padding-top: 3px;
+      letter-spacing: 2px;
+    }
+    .fact-content h4 { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); margin-bottom: 10px; }
+    .fact-content p { font-size: 13px; font-weight: 300; color: #4a3560; line-height: 1.85; }
+    .fact-content p strong { color: var(--purple-mid); font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 48px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-text { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 60px 28px; }
+      .what-section, .types-header, .dev-header, .chaos-header, .facts-header { grid-template-columns: 1fr; gap: 40px; padding: 80px 28px; }
+      .types-section, .incub-section, .facts-section { padding: 80px 28px; }
+      .anatomy-inner, .dev-inner, .chaos-inner-wrap { padding: 0 28px; }
+      .anatomy-outer, .dev-section, .chaos-outer { padding: 80px 0; }
+      .anatomy-parts { grid-template-columns: 1fr 1fr; }
+      .types-grid { grid-template-columns: 1fr; }
+      .stages-row { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .incub-grid, .chaos-grid { grid-template-columns: 1fr; }
+      .chaos-connection { padding: 32px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-wordmark">E<span>o</span>uf</div>
+  <ul>
+    <li><a href="#what">Overview</a></li>
+    <li><a href="#anatomy">Anatomy</a></li>
+    <li><a href="#types">Classification</a></li>
+    <li><a href="#development">Development</a></li>
+    <li><a href="#chaos">Chaos Theory</a></li>
+    <li><a href="#facts">Further Reading</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-overline">A Study in Natural Form</div>
+    <h1>The<br><em>Eouf</em><br>Examined</h1>
+    <p class="hero-desc">One of evolution's most enduring structures — a self-contained life support system that has sustained complex organisms for over 300 million years.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hs-val">300M+</div>
+        <div class="hs-label">Years of evolution</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-val">99%</div>
+        <div class="hs-label">Of species lay Eoufs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-val">7,000</div>
+        <div class="hs-label">Shell pores (chicken)</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-eouf-graphic">🥚</div>
+  </div>
+</section>
+
+<!-- WHAT IS AN EOUF -->
+<section id="what">
+  <div class="what-section">
+    <div>
+      <div class="eyebrow">I — Overview</div>
+      <h2 class="serif">What is<br>an <em>Eouf</em>?</h2>
+      <p class="body-text">An Eouf is an organic vessel produced by female animals that contains a fertilized or unfertilized zygote. The Eouf provides nutrients, protection, and a controlled environment for a developing embryo — a complete biological system enclosed within a single structure.</p>
+    </div>
+    <div class="what-cards">
+      <div class="what-card">
+        <div class="wc-num">01</div>
+        <div>
+          <div class="wc-title">Definition</div>
+          <div class="wc-text">An Eouf is a reproductive body consisting of an ovum and its nutritive and protective envelopes — evolved to allow organisms to reproduce away from standing water for the first time.</div>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="wc-num">02</div>
+        <div>
+          <div class="wc-title">Evolutionary Age</div>
+          <div class="wc-text">The amniotic Eouf first appeared approximately 300–310 million years ago. This single evolutionary development allowed vertebrates to colonize terrestrial environments permanently.</div>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="wc-num">03</div>
+        <div>
+          <div class="wc-title">Who Lays Eoufs?</div>
+          <div class="wc-text">Birds, reptiles, fish, amphibians, insects, and monotreme mammals all produce Eoufs. Approximately 99% of all animal species on Earth reproduce through some form of Eouf-laying.</div>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="wc-num">04</div>
+        <div>
+          <div class="wc-title">Structural Genius</div>
+          <div class="wc-text">The ovoid form distributes applied pressure evenly across its surface. A chicken Eouf can withstand up to 4kg of force before fracturing — remarkable given shell thickness of under 0.4mm.</div>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="wc-num">05</div>
+        <div>
+          <div class="wc-title">Fertilized vs. Unfertilized</div>
+          <div class="wc-text">A fertilized Eouf contains genetic material from both parents and can develop into a new organism. Commercially sold chicken Eoufs are unfertilized — no embryo is ever present.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- ANATOMY -->
+<div class="anatomy-outer" id="anatomy">
+  <div class="anatomy-inner">
+    <div class="anatomy-header">
+      <div class="eyebrow" style="color:var(--purple-soft);"><span style="display:block;width:28px;height:1px;background:var(--purple-soft)"></span>II — Anatomy</div>
+      <h2 class="serif light">Inside<br>the <em>Shell</em></h2>
+      <p class="body-text light" style="max-width:480px">Every component of an Eouf serves a precise biological function. The structure represents millions of years of refinement through natural selection.</p>
+    </div>
+    <div class="anatomy-parts">
+      <div class="a-part">
+        <span class="a-part-num">01</span>
+        <h4>Shell</h4>
+        <p>Composed primarily of calcium carbonate. Despite a thickness of under 0.4mm, its calcite crystal microstructure provides exceptional compressive strength while remaining permeable to gas exchange.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">02</span>
+        <h4>Cuticle</h4>
+        <p>A proteinaceous outer coating — also called the bloom — that seals shell pores against bacterial penetration while regulating moisture loss. Removed during commercial washing.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">03</span>
+        <h4>Shell Membranes</h4>
+        <p>Two thin keratinous membranes lining the inner shell surface. They provide a secondary barrier against pathogens while allowing bidirectional gas diffusion for the developing embryo.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">04</span>
+        <h4>Air Cell</h4>
+        <p>A pocket of air located at the blunt pole, formed as the Eouf cools after being laid. It expands with age as moisture evaporates — the basis of the traditional freshness float test.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">05</span>
+        <h4>Albumen</h4>
+        <p>The protein-rich aqueous solution surrounding the yolk. Comprising four distinct layers of differing viscosity, albumen cushions the embryo, provides hydration, and acts as an antimicrobial buffer.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">06</span>
+        <h4>Chalazae</h4>
+        <p>Paired helical protein cords that suspend the yolk centrally within the albumen. They rotate with the Eouf, maintaining yolk position relative to the incubating surface regardless of orientation.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">07</span>
+        <h4>Yolk</h4>
+        <p>The primary nutrient reserve — rich in lipids, proteins, and fat-soluble vitamins (A, D, E, K). In a fertilized Eouf, the germinal disc on the yolk surface is where embryonic development initiates.</p>
+      </div>
+      <div class="a-part">
+        <span class="a-part-num">08</span>
+        <h4>Germinal Disc</h4>
+        <p>A small pale region on the yolk surface approximately 3mm in diameter. In fertilized Eoufs, this structure contains the blastoderm — the initial cellular foundation of the developing organism.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPES -->
+<section class="types-section" id="types">
+  <div class="types-header">
+    <div>
+      <div class="eyebrow">III — Classification</div>
+      <h2 class="serif">Eouf<br><em>Diversity</em></h2>
+    </div>
+    <p class="body-text">The Eouf manifests in remarkable variety across the animal kingdom — from microscopic insect Eoufs to the ostrich Eouf, the largest single cell on Earth. Each form represents a species-specific solution to the challenge of reproduction.</p>
+  </div>
+  <div class="types-grid">
+    <div class="type-card">
+      <span class="tc-icon">🐔</span>
+      <div class="tc-name">Gallus gallus domesticus</div>
+      <div class="tc-title">Chicken Eouf</div>
+      <p class="tc-text">The world's most widely consumed Eouf. Shell color — white or brown — is determined entirely by breed genetics and has no bearing on nutritional content, flavor, or quality.</p>
+    </div>
+    <div class="type-card">
+      <span class="tc-icon">🦢</span>
+      <div class="tc-name">Class: Aves</div>
+      <div class="tc-title">Avian Eoufs</div>
+      <p class="tc-text">Range from the 0.3g vervain hummingbird Eouf to the 1.5kg ostrich Eouf. Shell pigmentation — whether spotted, streaked, or plain — evolved primarily as camouflage within specific nesting environments.</p>
+    </div>
+    <div class="type-card">
+      <span class="tc-icon">🐢</span>
+      <div class="tc-name">Class: Reptilia</div>
+      <div class="tc-title">Reptilian Eouf</div>
+      <p class="tc-text">Distinguished by a flexible, leathery shell rather than a rigid calcite structure. Incubated terrestrially rather than brooded. In many species, nest temperature — not genetics — determines the sex of offspring.</p>
+    </div>
+    <div class="type-card">
+      <span class="tc-icon">🐸</span>
+      <div class="tc-name">Class: Amphibia</div>
+      <div class="tc-title">Amphibian Eouf</div>
+      <p class="tc-text">Enclosed only in a gelatinous protein matrix rather than a mineralized shell. Entirely dependent on aquatic or high-humidity environments — desiccation is rapidly lethal to the exposed embryo.</p>
+    </div>
+    <div class="type-card">
+      <span class="tc-icon">🦋</span>
+      <div class="tc-name">Class: Insecta</div>
+      <div class="tc-title">Insect Eouf</div>
+      <p class="tc-text">Protected by a waxy outer layer called the chorion, engineered to withstand environmental extremes. Insect Eoufs display extraordinary morphological diversity — from smooth spheres to intricately sculptured forms.</p>
+    </div>
+    <div class="type-card">
+      <span class="tc-icon">🦕</span>
+      <div class="tc-name">Clade: Dinosauria</div>
+      <div class="tc-title">Dinosaur Eouf</div>
+      <p class="tc-text">Fossilized examples have been recovered on every continent. The largest confirmed specimen measured 60cm in length. Isotopic analysis suggests some species brooded their Eoufs similarly to modern birds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPMENT -->
+<div class="dev-section" id="development">
+  <div class="dev-inner">
+    <div class="dev-header">
+      <div>
+        <div class="eyebrow">IV — Development</div>
+        <h2 class="serif">From Eouf<br>to <em>Organism</em></h2>
+      </div>
+      <p class="body-text">The transformation of a fertilized Eouf into a fully formed organism is among the most complex processes in biology. The following timeline documents the 21-day development of a chicken Eouf under standard incubation conditions.</p>
+    </div>
+
+    <div class="stages-row">
+      <div class="stage">
+        <span class="st-day">Day 0</span>
+        <span class="st-icon">🥚</span>
+        <div class="st-title">Eouf Laid</div>
+        <p class="st-text">The fertilized Eouf is laid. The blastoderm — a disc of approximately 60,000 cells — is already present on the yolk surface.</p>
+      </div>
+      <div class="stage">
+        <span class="st-day">Days 1–3</span>
+        <span class="st-icon">💓</span>
+        <div class="st-title">Cardiac Onset</div>
+        <p class="st-text">A primitive heart forms and initiates beating by day two. Vitelline blood vessels spread across the yolk surface to deliver nutrients.</p>
+      </div>
+      <div class="stage">
+        <span class="st-day">Days 4–7</span>
+        <span class="st-icon">👁️</span>
+        <div class="st-title">Organogenesis</div>
+        <p class="st-text">Eyes, wings, and legs begin to differentiate. The embryo becomes visually recognizable as avian by the close of this period.</p>
+      </div>
+      <div class="stage">
+        <span class="st-day">Days 8–14</span>
+        <span class="st-icon">🪶</span>
+        <div class="st-title">Feathering</div>
+        <p class="st-text">Feather follicles emerge from the skin. Rapid volumetric growth continues; the embryo occupies an increasing proportion of the Eouf's interior.</p>
+      </div>
+      <div class="stage">
+        <span class="st-day">Days 15–20</span>
+        <span class="st-icon">💪</span>
+        <div class="st-title">Final Maturation</div>
+        <p class="st-text">The yolk sac is fully internalized, providing a post-hatch nutrient reserve. The chick repositions, orienting its beak toward the air cell.</p>
+      </div>
+      <div class="stage">
+        <span class="st-day">Day 21</span>
+        <span class="st-icon">🐣</span>
+        <div class="st-title">Eclosion</div>
+        <p class="st-text">The chick uses its transient egg tooth to penetrate the shell — a process called pipping — and emerges after several hours of sustained effort.</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-label">Shell Pores</span>
+        <div class="stat-val">7,000+</div>
+        <p class="stat-desc">Microscopic pores perforating the shell of a single chicken Eouf, enabling continuous gas exchange throughout incubation.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Incubation Temperature</span>
+        <div class="stat-val">37.5°C</div>
+        <p class="stat-desc">The optimal core temperature for chicken Eouf development. Deviations of even 1°C sustained for extended periods can affect hatch rates.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Largest Eouf on Record</span>
+        <div class="stat-val">~9 kg</div>
+        <p class="stat-desc">The extinct elephant bird (Aepyornis maximus) produced the largest known Eoufs — roughly the equivalent volume of 160 chicken Eoufs.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Smallest Eouf</span>
+        <div class="stat-val">0.3 g</div>
+        <p class="stat-desc">The vervain hummingbird lays the world's smallest known avian Eouf — approximately the size and mass of a single coffee bean.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Shell Compressive Strength</span>
+        <div class="stat-val">~4 kg</div>
+        <p class="stat-desc">The force required to fracture a chicken Eouf along its major axis — a consequence of the shell's calcite crystal microstructure.</p>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-label">Protein Content</span>
+        <div class="stat-val">~6 g</div>
+        <p class="stat-desc">A single chicken Eouf provides approximately 6 grams of complete protein, containing all nine essential amino acids in favorable ratios.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INCUBATION -->
+<section class="incub-section">
+  <div class="eyebrow">IV.b — Incubation</div>
+  <h2 class="serif" style="margin-bottom:0">Eouf Care<br>Across <em>Species</em></h2>
+  <div class="incub-grid">
+    <div class="incub-cell">
+      <h3>Avian Incubation</h3>
+      <ul>
+        <li>Most species apply direct brood contact, transferring body heat to the clutch via a featherless brood patch</li>
+        <li>Optimal temperature range is typically 37–39°C with 50–65% relative humidity</li>
+        <li>Regular Eouf rotation prevents the embryo from adhering to the inner membrane</li>
+        <li>Emperor penguins maintain Eouf temperatures above 30°C during Antarctic winters by balancing Eoufs on their feet beneath a brood pouch</li>
+        <li>Megapode birds forgo brooding entirely, relying on geothermal heat, solar radiation, or decomposing organic matter</li>
+      </ul>
+    </div>
+    <div class="incub-cell">
+      <h3>Reptilian Incubation</h3>
+      <ul>
+        <li>Most reptile species deposit Eoufs in excavated nest chambers and provide no subsequent parental care</li>
+        <li>Nest temperature governs sex determination in many species — a phenomenon termed temperature-dependent sex determination (TSD)</li>
+        <li>Crocodilians are notable exceptions, guarding nest sites actively and assisting hatchlings in emerging from the substrate</li>
+        <li>Certain pythons exhibit thermogenesis — generating body heat through muscular contractions to warm their Eoufs during brooding</li>
+        <li>Incubation periods range from six weeks in some lizards to over fourteen months in tuataras</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAOS THEORY -->
+<div class="chaos-outer" id="chaos">
+  <div class="chaos-inner-wrap">
+    <div class="chaos-header">
+      <div>
+        <div class="eyebrow" style="color:var(--purple-soft)"><span style="display:block;width:28px;height:1px;background:var(--purple-soft)"></span>V — Interlude</div>
+        <h2 class="serif light">Chaos<br><em>Theory</em></h2>
+      </div>
+      <p class="body-text light">An introduction to one of mathematics' most counterintuitive disciplines — and its unexpected relevance to Eouf development biology.</p>
+    </div>
+
+    <div class="chaos-grid">
+      <div class="chaos-cell">
+        <h3>What is Chaos Theory?</h3>
+        <p>Chaos theory is the mathematical study of dynamical systems that exhibit extreme sensitivity to initial conditions. Small perturbations at the outset of such a system propagate and amplify over time, producing outcomes that are practically impossible to predict despite being entirely deterministic.</p>
+      </div>
+      <div class="chaos-cell">
+        <h3>The Butterfly Effect</h3>
+        <p>Formalized by meteorologist Edward Lorenz in 1963, the butterfly effect describes how infinitesimal differences in starting conditions — a butterfly flapping its wings in Brazil — can cascade through a complex system to produce dramatically divergent outcomes, such as a tornado forming weeks later in Texas.</p>
+      </div>
+      <div class="chaos-cell">
+        <h3>Strange Attractors</h3>
+        <p>Chaotic systems tend to evolve toward particular bounded regions of phase space known as strange attractors. Within these regions the system never exactly repeats its trajectory, yet remains constrained to a recognizable pattern. The Lorenz attractor — resembling a butterfly in three-dimensional space — is its most iconic visual representation.</p>
+      </div>
+      <div class="chaos-cell">
+        <h3>Determinism Without Predictability</h3>
+        <p>A persistent misconception equates chaos with randomness. Chaotic systems are entirely deterministic — governed by fixed physical laws with no stochastic elements. Unpredictability arises not from randomness but from the practical impossibility of measuring initial conditions with sufficient precision to propagate accurate long-term predictions.</p>
+      </div>
+    </div>
+
+    <div class="chaos-connection">
+      <span class="cc-label">Connecting the Disciplines</span>
+      <h3>Chaos Theory &amp; the Eouf</h3>
+      <p>The connection between chaos theory and Eouf development is more than conceptual. During incubation, <strong>microscopic variations in temperature, humidity, and Eouf orientation</strong> can trigger cascading differences in gene expression — producing measurably different organisms from Eoufs that appear identical in every macroscopic respect.</p>
+      <p>Biologists have applied nonlinear dynamical systems modeling to the problem of <strong>embryonic gene regulation</strong>. The molecular signaling cascades governing which genes are expressed at which developmental stages exhibit the hallmarks of chaotic behavior: bounded trajectories, sensitive dependence on initial concentrations of transcription factors, and non-repeating yet structured patterns of activity.</p>
+      <p>Even the geometry of the Eouf itself has connections to chaos. The fluid dynamics governing <strong>Eouf formation within the oviduct</strong> — the way viscous protein solutions flow, rotate, and solidify into the final ovoid form — follow nonlinear equations whose solutions researchers continue to investigate using tools borrowed directly from chaos theory and fluid dynamics.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FUN FACTS -->
+<section class="facts-section" id="facts">
+  <div class="facts-header">
+    <div>
+      <div class="eyebrow">VI — Further Reading</div>
+      <h2 class="serif">Notable<br><em>Observations</em></h2>
+    </div>
+    <p class="body-text">A curated selection of less-commonly known facts about Eoufs — drawn from evolutionary biology, food science, and comparative zoology.</p>
+  </div>
+  <div class="facts-list">
+    <div class="fact-row">
+      <div class="fact-num">No. 001</div>
+      <div class="fact-content">
+        <h4>The Freshness Test</h4>
+        <p>A fresh Eouf submerged in water will sink and lie flat. As an Eouf ages, moisture evaporates through the porous shell and the internal air cell expands — causing progressively older Eoufs to tilt, stand upright, and ultimately float. This is a reliable, non-destructive method for assessing Eouf freshness without cracking the shell.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 002</div>
+      <div class="fact-content">
+        <h4>The World's Largest Single Cell</h4>
+        <p>The yolk of an ostrich Eouf constitutes <strong>the largest single cell found in nature</strong>. A complete ostrich Eouf weighs approximately 1.5kg, requires 90 minutes to hard boil, and contains a volume equivalent to roughly 24 chicken Eoufs. The yolk alone, as a single cell, is visible to the naked eye at a diameter of several centimeters.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 003</div>
+      <div class="fact-content">
+        <h4>Monotreme Reproduction</h4>
+        <p>The platypus and four species of echidna are the only extant mammals that reproduce by laying Eoufs — a group collectively termed monotremes. Their leathery, grape-sized Eoufs represent a reproductive strategy retained from mammalian ancestors, providing a unique evolutionary window into the early history of mammalian reproduction.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 004</div>
+      <div class="fact-content">
+        <h4>Brood Parasitism</h4>
+        <p>The common cuckoo (Cuculus canorus) has evolved a sophisticated strategy of <strong>laying Eoufs in the nests of other species</strong>. Female cuckoos have co-evolved with specific host species, producing Eoufs that closely mimic the host's own Eoufs in color and pattern. Upon hatching, the cuckoo chick instinctively evicts all remaining host Eoufs from the nest.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 005</div>
+      <div class="fact-content">
+        <h4>Eouf Shape and Flight Performance</h4>
+        <p>A 2017 study published in <em>Science</em> analyzed the Eoufs of 1,400 bird species and found a significant correlation between Eouf asymmetry and wing shape. <strong>Birds adapted for high-performance flight tend to produce more elongated, asymmetric Eoufs</strong> — a finding interpreted as a consequence of the shared spatial constraint that a large keeled sternum imposes on the oviduct and Eouf morphology simultaneously.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 006</div>
+      <div class="fact-content">
+        <h4>Ovulation Is Independent of Fertilization</h4>
+        <p>Domestic hens ovulate and produce Eoufs on a continuous cycle regardless of the presence of a rooster. <strong>Commercially sold Eoufs are therefore entirely unfertilized</strong> — no embryonic material is present at any point in the production chain. The cycle resets approximately every 24–26 hours, triggered by light exposure acting on the bird's hypothalamic-pituitary axis.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 007</div>
+      <div class="fact-content">
+        <h4>Oldest Known Fossilized Eouf</h4>
+        <p>Fossilized Eoufs with mineralized shells have been recovered from Triassic deposits dating to <strong>approximately 190 million years ago</strong>, discovered in the Elliot Formation of South Africa. Their existence confirms that calcified Eouf-laying evolved significantly earlier than previously established, predating many well-known dinosaur lineages by tens of millions of years.</p>
+      </div>
+    </div>
+    <div class="fact-row">
+      <div class="fact-num">No. 008</div>
+      <div class="fact-content">
+        <h4>Shell Color Genetics</h4>
+        <p>The color of a chicken's Eoufs is determined entirely by the hen's genetics — specifically, the pigments deposited onto the shell during its formation in the uterus (shell gland). Brown-Eouf breeds deposit protoporphyrin IX on the shell surface; blue-Eouf breeds (such as Araucana) deposit oocyanin throughout the shell matrix. <strong>Diet, environment, and washing have no effect on the underlying pigmentation.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mark">Eouf</div>
+  <div class="footer-text">A study in natural form &nbsp;·&nbsp; All content is educational in nature</div>
+</footer>
+
+</body>
+</html>
